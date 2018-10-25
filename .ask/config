@@ -1,0 +1,16 @@
+{
+  "deploy_settings": {
+    "default": {
+      "skill_id": "",
+      "merge": {
+        "manifest": {
+          "apis": {
+            "endpoint": {
+                "uri": "ask-custom-curiosidades-de-gatos-default"
+            }
+          }
+        }
+      }
+    }
+  }
+}

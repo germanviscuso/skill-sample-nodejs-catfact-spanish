@@ -1,0 +1,50 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "curiosidades de gatos",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "GetNewFactIntent",
+          "samples": [
+            "un dato",
+            "un dato de gatos",
+            "dime un dato",
+            "dime un dato de gatos",
+            "dame un dato",
+            "dame un dato de gatos",
+            "una curiosidad",
+            "una curiosidad de gatos",
+            "dime una curiosidad",
+            "dime una curiosidad de gatos",
+            "dame una curiosidad",
+            "dame una curiosidad de gatos",
+            "dime una trivia",
+            "dime una trivia de gatos",
+            "dame trivia",
+            "dame un trivia de atos",
+            "dame información",
+            "dame información de gatos",
+            "dime algo",
+            "dame algo"
+          ]
+        }
+      ]
+    }
+  }
+}
