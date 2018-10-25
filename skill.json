@@ -1,0 +1,35 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "es-ES": {
+          "summary": "Aprende datos interesantes de gatos.",
+          "examplePhrases": [
+            "Alexa abre curiosidades de gatos",
+            "Alexa pídele a curiosidades de gatos un dato",
+            "Alexa pídele a curiosidades de gatos que me diga una trivia"
+          ],
+          "keywords": [
+            "gatos",
+            "datos",
+            "trivia"
+          ],
+          "name": "Curiosidades de Gatos",
+          "description": "Pregunta por Curiosidades de Gatos y aprende lo más importante, como por ejemplo que tan rápido pueden correr.\n\nCuriosidades de Gatos entretiene a toda la familia y te hace conocer mejor a los felinos.\n\nPara comenzar solo di \"Alexa, lanza curiosidades de gatos\" o \"Alexa, abre curiosidades de gatos\" para obtener un dato\".\n\nEn cualquier momento puedes parar diciendo \"Alexa, para\""
+      }
+    },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "Sample Testing Instructions.",
+      "category": "EDUCATION_AND_REFERENCE",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "lambda/custom"
+        }
+      }
+    },
+    "manifestVersion": "1.0"
+  }
+}
