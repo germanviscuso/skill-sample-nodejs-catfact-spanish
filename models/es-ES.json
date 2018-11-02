@@ -21,28 +21,232 @@
         },
         {
           "name": "GetNewFactIntent",
+          "slots": [
+            {
+              "name": "quiero",
+              "type": "tipoQuiero"
+            },
+            {
+              "name": "un",
+              "type": "tipoUn"
+            },
+            {
+              "name": "hecho",
+              "type": "tipoHecho"
+            },
+            {
+              "name": "deGatos",
+              "type": "tipoDeGatos"
+            }
+          ],
           "samples": [
-            "un dato",
-            "un dato de gatos",
-            "dime un dato",
-            "dime un dato de gatos",
-            "dame un dato",
-            "dame un dato de gatos",
-            "una curiosidad",
-            "una curiosidad de gatos",
-            "dime una curiosidad",
-            "dime una curiosidad de gatos",
-            "dame una curiosidad",
-            "dame una curiosidad de gatos",
-            "dime una trivia",
-            "dime una trivia de gatos",
-            "dame trivia",
-            "dame un trivia de atos",
-            "dame información",
-            "dame información de gatos",
-            "dime algo",
-            "dame algo"
+            "{un} {hecho}",
+            "{un} {hecho} {deGatos}",
+            "{quiero} {un} {hecho}",
+            "{quiero} {un} {hecho} {deGatos}",
+            "{un} {hecho} {quiero}",
+            "{un} {hecho} {deGatos} {quiero}",
+            "{quiero} algo",
+            "algo de {hecho}",
+            "algo de {hecho} {deGatos}"
           ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "value": "me darías"
+              }
+            },
+            {
+              "name": {
+                "value": "me dirías"
+              }
+            },
+            {
+              "name": {
+                "value": "me narrarías"
+              }
+            },
+            {
+              "name": {
+                "value": "podrías narrarme"
+              }
+            },
+            {
+              "name": {
+                "value": "nárrame"
+              }
+            },
+            {
+              "name": {
+                "value": "podrías contarme"
+              }
+            },
+            {
+              "name": {
+                "value": "podrías decirme"
+              }
+            },
+            {
+              "name": {
+                "value": "podrías darme"
+              }
+            },
+            {
+              "name": {
+                "value": "quisiera"
+              }
+            },
+            {
+              "name": {
+                "value": "me interesaría"
+              }
+            },
+            {
+              "name": {
+                "value": "me interesa"
+              }
+            },
+            {
+              "name": {
+                "value": "cuéntame"
+              }
+            },
+            {
+              "name": {
+                "value": "quiero"
+              }
+            },
+            {
+              "name": {
+                "value": "dame"
+              }
+            },
+            {
+              "name": {
+                "value": "dime"
+              }
+            }
+          ],
+          "name": "tipoQuiero"
+        },
+        {
+          "values": [
+            {
+              "name": {
+                "value": "unos"
+              }
+            },
+            {
+              "name": {
+                "value": "unas"
+              }
+            },
+            {
+              "name": {
+                "value": "los"
+              }
+            },
+            {
+              "name": {
+                "value": "las"
+              }
+            },
+            {
+              "name": {
+                "value": "la"
+              }
+            },
+            {
+              "name": {
+                "value": "el"
+              }
+            },
+            {
+              "name": {
+                "value": "una"
+              }
+            },
+            {
+              "name": {
+                "value": "un"
+              }
+            }
+          ],
+          "name": "tipoUn"
+        },
+        {
+          "values": [
+            {
+              "name": {
+                "value": "frases"
+              }
+            },
+            {
+              "name": {
+                "value": "trivia"
+              }
+            },
+            {
+              "name": {
+                "value": "tips"
+              }
+            },
+            {
+              "name": {
+                "value": "hechos"
+              }
+            },
+            {
+              "name": {
+                "value": "hecho"
+              }
+            },
+            {
+              "name": {
+                "value": "información"
+              }
+            },
+            {
+              "name": {
+                "value": "curiosidades"
+              }
+            },
+            {
+              "name": {
+                "value": "datos"
+              }
+            },
+            {
+              "name": {
+                "value": "curiosidad"
+              }
+            },
+            {
+              "name": {
+                "value": "dato"
+              }
+            }
+          ],
+          "name": "tipoHecho"
+        },
+        {
+          "values": [
+            {
+              "name": {
+                "value": "de felinos"
+              }
+            },
+            {
+              "name": {
+                "value": "de gatos"
+              }
+            }
+          ],
+          "name": "tipoDeGatos"
         }
       ]
     }

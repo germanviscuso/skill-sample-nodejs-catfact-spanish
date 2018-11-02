@@ -5,11 +5,13 @@ const Alexa = require('ask-sdk');
 const translate = require('translate');
 
 translate.engine = 'yandex';
-translate.key = 'GET_KEY_BELOW_AND_PUT_IT_HERE';
-// get your key at https://translate.yandex.com/developers/keys
+//translate.engine = 'google';
+translate.key = 'YOUR_TRANSLATION_SERVICE_API_KEY_HERE';
+// get your yandex API key at https://translate.yandex.com/developers/keys
+// get your google API key at https://console.cloud.google.com/apis/credentials
 
 const HELP_REPROMPT = '¿Cómo te puedo ayudar?';
-const HELP_MESSAGE = 'Puedes decirme dime un dato de gatos, o, puedes decir para... ' + HELP_REPROMPT;
+const HELP_MESSAGE = 'Puedes decirme pedirme una curiosidad de gatos, o, puedes decir para... ' + HELP_REPROMPT;
 const STOP_MESSAGE = '¡Adiós!';
 
 const GetNewFactHandler = {
@@ -20,7 +22,7 @@ const GetNewFactHandler = {
         && request.intent.name === 'GetNewFactIntent');
   },
   async handle(handlerInput) {
-    let outputSpeech = '¡Perdona, no hemos podido recuperar un dato!';
+    let outputSpeech = '¡Perdona, no hemos podido recuperar una curiosidad!';
     let fact;
     await getData('https://catfact.ninja/fact')
       .then((response) => {
