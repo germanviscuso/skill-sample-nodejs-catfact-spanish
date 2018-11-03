@@ -2,17 +2,18 @@
 /* eslint-disable  no-console */
 
 const Alexa = require('ask-sdk');
-const translate = require('translate');
+const AWS = require('aws-sdk');
 
-translate.engine = 'yandex';
-//translate.engine = 'google';
-translate.key = 'YOUR_TRANSLATION_SERVICE_API_KEY_HERE';
-// get your yandex API key at https://translate.yandex.com/developers/keys
-// get your google API key at https://console.cloud.google.com/apis/credentials
+AWS.config.update({ region: 'eu-west-1' });
+
+// Make sure your lambda role has the following policies: AWSLambdaBasicExecutionRole and TranslateReadOnly 
+var translate = new AWS.Translate();
 
 const HELP_REPROMPT = '¿Cómo te puedo ayudar?';
-const HELP_MESSAGE = 'Puedes decirme pedirme una curiosidad de gatos, o, puedes decir para... ' + HELP_REPROMPT;
+const HELP_MESSAGE = 'Puedes decirme dime una curiosidad de gatos, o, puedes decir para... ' + HELP_REPROMPT;
 const STOP_MESSAGE = '¡Adiós!';
+const GENERIC_ERROR = 'Perdona ha ocurrido un error.';
+const SERVICE_ERROR = '¡Perdona, no hemos podido recuperar una curiosidad!';
 
 const GetNewFactHandler = {
   canHandle(handlerInput) {
@@ -22,7 +23,7 @@ const GetNewFactHandler = {
         && request.intent.name === 'GetNewFactIntent');
   },
   async handle(handlerInput) {
-    let outputSpeech = '¡Perdona, no hemos podido recuperar una curiosidad!';
+    let outputSpeech = SERVICE_ERROR;
     let fact;
     await getData('https://catfact.ninja/fact')
       .then((response) => {
@@ -36,7 +37,21 @@ const GetNewFactHandler = {
       let i = Math.floor(Math.random() * catSounds.length);
       const catSound = catSounds[i];
       outputSpeech = catSound + ' ';
-      const translation = await translate(fact, { from: 'en', to: 'es' });
+
+      var params = {
+        SourceLanguageCode: 'en',
+        TargetLanguageCode: 'es',
+        Text: fact
+      };
+
+      let translation;
+      try {
+        const fulfilledPromise = await translate.translateText(params).promise();
+        translation = fulfilledPromise.TranslatedText;
+      } catch (err) {
+        translation = SERVICE_ERROR;
+      }
+
       outputSpeech += switchVoice(translation, 'Enrique');
     }
     return handlerInput.responseBuilder
@@ -54,8 +69,8 @@ const HelpHandler = {
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder
-      .speak(HELP_MESSAGE)
-      .reprompt(HELP_REPROMPT)
+      .speak(switchVoice(HELP_MESSAGE, 'Enrique'))
+      .reprompt(switchVoice(HELP_REPROMPT, 'Enrique'))
       .getResponse();
   },
 };
@@ -69,7 +84,7 @@ const ExitHandler = {
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder
-      .speak(STOP_MESSAGE)
+      .speak(switchVoice(STOP_MESSAGE, 'Enrique'))
       .getResponse();
   },
 };
@@ -94,8 +109,8 @@ const ErrorHandler = {
     console.log(`Error handled: ${error.message}`);
 
     return handlerInput.responseBuilder
-      .speak('Perdona ha ocurrido un error.')
-      .reprompt('Perdona ha ocurrido un error.')
+      .speak(switchVoice(GENERIC_ERROR, 'Enrique'))
+      .reprompt(switchVoice(GENERIC_ERROR, 'Enrique'))
       .getResponse();
   },
 };
