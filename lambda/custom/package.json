@@ -15,6 +15,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "ask-sdk": "^2.0.0",
-    "aws-sdk": "^2.348.0"
+    "aws-sdk": "^2.348.0",
+    "lru-cache": "^4.1.3"
   }
 }

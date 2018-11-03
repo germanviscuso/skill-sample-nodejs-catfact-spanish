@@ -3,11 +3,27 @@
 
 const Alexa = require('ask-sdk');
 const AWS = require('aws-sdk');
+const LRU = require("lru-cache");
 
+// Change this to your Alexa enabled AWS region
 AWS.config.update({ region: 'eu-west-1' });
 
 // Make sure your lambda role has the following policies: AWSLambdaBasicExecutionRole and TranslateReadOnly 
 var translate = new AWS.Translate();
+
+// String hashing function for the cache
+String.prototype.hashCode = function() {
+  var hash = 0, i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr   = this.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
+
+const cache = LRU(256);
 
 const HELP_REPROMPT = '¿Cómo te puedo ayudar?';
 const HELP_MESSAGE = 'Puedes decirme dime una curiosidad de gatos, o, puedes decir para... ' + HELP_REPROMPT;
@@ -38,18 +54,25 @@ const GetNewFactHandler = {
       const catSound = catSounds[i];
       outputSpeech = catSound + ' ';
 
-      var params = {
-        SourceLanguageCode: 'en',
-        TargetLanguageCode: 'es',
-        Text: fact
-      };
-
       let translation;
-      try {
-        const fulfilledPromise = await translate.translateText(params).promise();
-        translation = fulfilledPromise.TranslatedText;
-      } catch (err) {
-        translation = SERVICE_ERROR;
+      const hash = fact.hashCode();
+      const cachedString = cache.get(hash);
+      if(cachedString){
+        translation = cachedString;
+      } else {
+        var params = {
+          SourceLanguageCode: 'en',
+          TargetLanguageCode: 'es',
+          Text: fact
+        };
+   
+        try {
+          const fulfilledPromise = await translate.translateText(params).promise();
+          translation = fulfilledPromise.TranslatedText;
+          cache.set(hash, translation);
+        } catch (err) {
+          translation = SERVICE_ERROR;
+        }
       }
 
       outputSpeech += switchVoice(translation, 'Enrique');
